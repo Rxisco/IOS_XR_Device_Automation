@@ -1,0 +1,1008 @@
+show version
+
+Wed Oct 23 21:22:16.117 UTC
+Cisco IOS XR Software, Version 7.3.2
+Copyright (c) 2013-2021 by Cisco Systems, Inc.
+
+Build Information:
+ Built By     : ingunawa
+ Built On     : Wed Oct 13 20:00:36 PDT 2021
+ Built Host   : iox-ucs-017
+ Workspace    : /auto/srcarchive17/prod/7.3.2/xrv9k/ws
+ Version      : 7.3.2
+ Location     : /opt/cisco/XR/packages/
+ Label        : 7.3.2-0
+
+cisco IOS-XRv 9000 () processor
+System uptime is 6 days 22 hours 19 minutes
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+show running-config
+
+Wed Oct 23 21:22:17.460 UTC
+Building configuration...
+!! IOS XR Configuration 7.3.2
+!! Last configuration change at Wed Oct 23 19:57:21 2024 by admin
+!
+hostname Test123
+snmp-server traps alarm
+banner motd "Hello there! Hoping you are having a great day
+... Welcome to '$(hostname)',
+your favorite CISCO.IOSXR.IOSXR Sandbox"
+logging buffered informational
+username admin
+ group root-lr
+ group cisco-support
+ secret 10 $6$F3kfY1/w8tjGCY1.$MC31GMZoTQZw/QaXJACQZYJltYllPSYCC9LRzzhxb5Zn9X.mWWUezTo/kXORs3JsM/0ttm3peLBijGR83osQ9/
+!
+cdp
+cdp advertise v1
+grpc
+ port 57777
+ no-tls
+ address-family ipv4
+!
+line console
+ exec-timeout 0 0
+ absolute-timeout 0
+ session-timeout 0
+!
+line default
+ exec-timeout 0 0
+ absolute-timeout 0
+ session-timeout 0
+!
+snmp-server community public RO
+snmp-server traps rf
+snmp-server traps bfd
+snmp-server traps ntp
+snmp-server traps copy-complete
+snmp-server traps snmp linkup
+snmp-server traps snmp linkdown
+snmp-server traps snmp coldstart
+snmp-server traps snmp warmstart
+snmp-server traps snmp authentication
+snmp-server traps flash removal
+snmp-server traps flash insertion
+snmp-server traps power
+snmp-server traps config
+snmp-server traps entity
+snmp-server traps selective-vrf-download role-change
+snmp-server traps syslog
+snmp-server traps system
+snmp-server traps diameter peerup
+snmp-server traps diameter peerdown
+snmp-server traps diameter protocolerror
+snmp-server traps diameter permanentfail
+snmp-server traps diameter transientfail
+snmp-server traps bridgemib
+snmp-server traps addrpool low
+snmp-server traps addrpool high
+snmp-server traps cisco-entity-ext
+snmp-server traps entity-state operstatus
+snmp-server traps entity-state switchover
+snmp-server traps entity-redundancy all
+snmp-server traps entity-redundancy status
+snmp-server traps entity-redundancy switchover
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method http
+ !
+!
+netconf-yang agent
+ ssh
+!
+interface Bundle-Ether6
+ description #test#
+!
+interface Bundle-Ether6.6477
+ description SBI-ML3-3-184671-AKC-4096k-STATE-BANK-OF-INDIA-3-4651111-30102023
+ bandwidth 4096
+ ipv4 address 10.171.221.134 255.255.255.252
+ ipv4 verify unicast source reachable-via any allow-self-ping allow-default
+ ipv4 unreachables disable
+ encapsulation dot1q 1000 second-dot1q 502
+!
+interface Loopback0
+ description Loopback Interface
+ ipv4 address 192.0.2.1 255.255.255.255
+!
+interface Loopback1
+!
+interface Loopback2
+!
+interface Loopback4
+!
+interface Loopback6
+!
+interface Loopback10
+ ipv4 address 192.168.10.1 255.255.255.255
+!
+interface tunnel-ip3
+ mtu 512
+ tunnel source Loopback10
+ tunnel destination 20.248.252.100
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.10.20.175 255.255.255.0
+!
+interface GigabitEthernet0/0/0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/1
+ description test
+ shutdown
+!
+interface GigabitEthernet0/0/0/2
+ description #test#
+ bundle id 6 mode active
+!
+interface GigabitEthernet0/0/0/3
+ description test
+ shutdown
+!
+interface GigabitEthernet0/0/0/4
+ shutdown
+!
+interface GigabitEthernet0/0/0/5
+ shutdown
+!
+interface GigabitEthernet0/0/0/6
+ shutdown
+!
+prefix-set CUST-ATOS-V4
+  45.116.220.0/22 le 32,
+  103.57.32.0/22 le 32,
+  45.116.220.0/22 le 32,
+  103.57.32.0/22 le 32,
+  165.187.131.0/24 le 32,
+  167.30.140.0/24 le 32,
+  167.30.213.0/24 le 32,
+  165.187.0.0/16 le 32,
+  165.187.0.0/16 le 32,
+  165.187.128.0/24 le 32,
+  165.187.132.0/22 le 32,
+  165.187.136.0/24 le 32,
+  165.187.137.0/24 le 32,
+  167.30.205.0/24
+end-set
+!
+route-policy allowedall
+  done
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 10.10.20.254
+  0.0.0.0/0 MgmtEth0/RP0/CPU0/0 10.10.20.254
+  222.228.1.1/32 Null0 tag 9999 description ddos-2024/10/19-stage2
+ !
+!
+router isis default
+ interface tunnel-ip3
+ !
+!
+snmp-server traps isis all
+snmp-server traps ospfv3 errors bad-packet
+snmp-server traps ospfv3 errors config-error
+snmp-server traps ospfv3 errors virt-bad-packet
+snmp-server traps ospfv3 state-change if-state-change
+snmp-server traps ospfv3 state-change neighbor-state-change
+snmp-server traps ospfv3 state-change virtif-state-change
+snmp-server traps ospfv3 state-change virtneighbor-state-change
+snmp-server traps ospfv3 state-change restart-status-change
+snmp-server traps ospfv3 state-change restart-virtual-helper-status-change
+snmp-server traps bgp cbgp2
+snmp-server traps bgp
+router bgp 1234
+ bgp router-id 1.1.1.1
+ address-family ipv4 unicast
+ !
+ neighbor 1.1.1.2
+  remote-as 5555
+  address-family ipv4 unicast
+   route-policy allowedall in
+   route-policy allowedall out
+  !
+ !
+!
+snmp-server traps hsrp
+snmp-server traps vrrp events
+snmp-server traps vpls all
+snmp-server traps vpls status
+snmp-server traps vpls full-clear
+snmp-server traps vpls full-raise
+snmp-server traps l2vpn all
+snmp-server traps l2vpn vc-up
+snmp-server traps l2vpn vc-down
+snmp-server traps mpls traffic-eng up
+snmp-server traps mpls traffic-eng down
+snmp-server traps mpls traffic-eng reroute
+snmp-server traps mpls traffic-eng reoptimize
+snmp-server traps mpls frr all
+snmp-server traps mpls frr protected
+snmp-server traps mpls frr unprotected
+snmp-server traps mpls ldp up
+snmp-server traps mpls ldp down
+snmp-server traps mpls ldp threshold
+snmp-server traps mpls traffic-eng p2mp up
+snmp-server traps mpls traffic-eng p2mp down
+snmp-server traps rsvp all
+snmp-server traps rsvp new-flow
+snmp-server traps rsvp lost-flow
+snmp-server traps mpls l3vpn all
+snmp-server traps mpls l3vpn vrf-up
+snmp-server traps mpls l3vpn vrf-down
+snmp-server traps mpls l3vpn max-threshold-cleared
+snmp-server traps mpls l3vpn max-threshold-exceeded
+snmp-server traps mpls l3vpn mid-threshold-exceeded
+snmp-server traps mpls l3vpn max-threshold-reissue-notif-time 1
+snmp-server traps pim neighbor-change
+snmp-server traps pim invalid-message-received
+snmp-server traps pim rp-mapping-change
+snmp-server traps pim interface-state-change
+snmp-server traps msdp peer-state-change
+xml agent tty
+ iteration off
+!
+snmp-server traps sensor
+snmp-server traps fru-ctrl
+netconf agent tty
+!
+snmp-server traps ospf lsa lsa-maxage
+snmp-server traps ospf lsa lsa-originate
+snmp-server traps ospf errors bad-packet
+snmp-server traps ospf errors authentication-failure
+snmp-server traps ospf errors config-error
+snmp-server traps ospf errors virt-bad-packet
+snmp-server traps ospf errors virt-authentication-failure
+snmp-server traps ospf errors virt-config-error
+snmp-server traps ospf retransmit packets
+snmp-server traps ospf retransmit virt-packets
+snmp-server traps ospf state-change if-state-change
+snmp-server traps ospf state-change neighbor-state-change
+snmp-server traps ospf state-change virtif-state-change
+snmp-server traps ospf state-change virtneighbor-state-change
+snmp-server traps l2tun sessions
+snmp-server traps l2tun tunnel-up
+snmp-server traps l2tun tunnel-down
+snmp-server traps l2tun pseudowire status
+snmp-server traps pki
+snmp-server traps ipsec tunnel stop
+snmp-server traps ipsec tunnel start
+snmp-server traps isakmp tunnel stop
+snmp-server traps isakmp tunnel start
+ssh server v2
+ssh server vrf default
+ssh server netconf vrf default
+snmp-server traps ipsla
+snmp-server traps subscriber session-agg node
+snmp-server traps subscriber session-agg access-interface
+end
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+show startup-config
+
+                              ^
+% Invalid input detected at '^' marker.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+show interface
+
+Wed Oct 23 21:22:20.215 UTC
+Bundle-Ether6 is down, line protocol is down 
+  Interface state transitions: 0
+  Hardware is Aggregated Ethernet interface(s), address is 0017.9500.8f36
+  Description: #test#
+  Internet address is Unknown
+  MTU 1514 bytes, BW 0 Kbit
+     reliability 255/255, txload Unknown, rxload Unknown
+  Encapsulation ARPA,
+  Full-duplex, 0Kb/s
+  loopback not set,
+    No. of members in this bundle: 1
+      GigabitEthernet0/0/0/2       Full-duplex  1000Mb/s     Configured      
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+
+Bundle-Ether6.6477 is down, line protocol is down 
+  Interface state transitions: 0
+  Hardware is VLAN sub-interface(s), address is 0017.9500.8f36
+  Description: SBI-ML3-3-184671-AKC-4096k-STATE-BANK-OF-INDIA-3-4651111-30102023
+  Internet address is 10.171.221.134/30
+  MTU 1522 bytes, BW 0 Kbit
+     reliability 255/255, txload Unknown, rxload Unknown
+  Encapsulation 802.1Q Virtual LAN, VLAN Id 1000, 2nd VLAN Id 502,
+  loopback not set,
+  ARP type ARPA, ARP timeout 04:00:00
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+
+Loopback0 is up, line protocol is up 
+  Interface state transitions: 1
+  Hardware is Loopback interface(s)
+  Description: Loopback Interface
+  Internet address is 192.0.2.1/32
+  MTU 1500 bytes, BW 0 Kbit
+     reliability Unknown, txload Unknown, rxload Unknown
+  Encapsulation Loopback,  loopback not set,
+  Last link flapped 4d02h
+  Last input Unknown, output Unknown
+  Last clearing of "show interface" counters Unknown
+  Input/output data rate is disabled.
+
+Loopback1 is up, line protocol is up 
+  Interface state transitions: 1
+  Hardware is Loopback interface(s)
+  Internet address is Unknown
+  MTU 1500 bytes, BW 0 Kbit
+     reliability Unknown, txload Unknown, rxload Unknown
+  Encapsulation Loopback,  loopback not set,
+  Last link flapped 5d04h
+  Last input Unknown, output Unknown
+  Last clearing of "show interface" counters Unknown
+  Input/output data rate is disabled.
+
+Loopback2 is up, line protocol is up 
+  Interface state transitions: 1
+  Hardware is Loopback interface(s)
+  Internet address is Unknown
+  MTU 1500 bytes, BW 0 Kbit
+     reliability Unknown, txload Unknown, rxload Unknown
+  Encapsulation Loopback,  loopback not set,
+  Last link flapped 5d04h
+  Last input Unknown, output Unknown
+  Last clearing of "show interface" counters Unknown
+  Input/output data rate is disabled.
+
+Loopback4 is up, line protocol is up 
+  Interface state transitions: 1
+  Hardware is Loopback interface(s)
+  Internet address is Unknown
+  MTU 1500 bytes, BW 0 Kbit
+     reliability Unknown, txload Unknown, rxload Unknown
+  Encapsulation Loopback,  loopback not set,
+  Last link flapped 5d04h
+  Last input Unknown, output Unknown
+  Last clearing of "show interface" counters Unknown
+  Input/output data rate is disabled.
+
+Loopback6 is up, line protocol is up 
+  Interface state transitions: 1
+  Hardware is Loopback interface(s)
+  Internet address is Unknown
+  MTU 1500 bytes, BW 0 Kbit
+     reliability Unknown, txload Unknown, rxload Unknown
+  Encapsulation Loopback,  loopback not set,
+  Last link flapped 5d04h
+  Last input Unknown, output Unknown
+  Last clearing of "show interface" counters Unknown
+  Input/output data rate is disabled.
+
+Loopback10 is up, line protocol is up 
+  Interface state transitions: 1
+  Hardware is Loopback interface(s)
+  Internet address is 192.168.10.1/32
+  MTU 1500 bytes, BW 0 Kbit
+     reliability Unknown, txload Unknown, rxload Unknown
+  Encapsulation Loopback,  loopback not set,
+  Last link flapped 2d07h
+  Last input Unknown, output Unknown
+  Last clearing of "show interface" counters Unknown
+  Input/output data rate is disabled.
+
+Null0 is up, line protocol is up 
+  Interface state transitions: 1
+  Hardware is Null interface
+  Internet address is Unknown
+  MTU 1500 bytes, BW 0 Kbit
+     reliability 255/255, txload Unknown, rxload Unknown
+  Encapsulation Null,  loopback not set,
+  Last link flapped 6d22h
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+
+tunnel-ip3 is up, line protocol is up 
+  Interface state transitions: 1
+  Hardware is Tunnel
+  Internet address is Unknown
+  MTU 512 bytes, BW 100 Kbit (Max: 100 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation TUNNEL_IP,  loopback not set,
+  Last link flapped 2d07h
+  Tunnel TOS 0
+  Tunnel mode GRE IPV4
+  Keepalive is disabled.
+  Tunnel source 192.168.10.1 (Loopback10), destination 20.248.252.100/32
+  Tunnel TTL 255
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     Unknown drops for unrecognized upper-level protocol
+     Received Unknown broadcast packets, Unknown multicast packets
+     0 packets output, 0 bytes, 0 total output drops
+     Output Unknown broadcast packets, Unknown multicast packets
+
+MgmtEth0/RP0/CPU0/0 is up, line protocol is up 
+  Interface state transitions: 3
+  Hardware is Management Ethernet, address is 0050.56bf.d307 (bia 0050.56bf.d307)
+  Internet address is 10.10.20.175/24
+  MTU 1514 bytes, BW 1000000 Kbit (Max: 1000000 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation ARPA,
+  Full-duplex, 1000Mb/s, CX, link type is autonegotiation
+  loopback not set,
+  Last link flapped 6d22h
+  ARP type ARPA, ARP timeout 04:00:00
+  Last input 00:00:00, output 00:00:00
+  Last clearing of "show interface" counters never
+  5 minute input rate 1000 bits/sec, 2 packets/sec
+  5 minute output rate 4000 bits/sec, 1 packets/sec
+     661823 packets input, 71964778 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     480606 packets output, 118857969 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     3 carrier transitions
+
+GigabitEthernet0/0/0/0 is administratively down, line protocol is administratively down 
+  Interface state transitions: 0
+  Hardware is GigabitEthernet, address is 0050.56bf.bb17 (bia 0050.56bf.bb17)
+  Internet address is Unknown
+  MTU 1514 bytes, BW 1000000 Kbit (Max: 1000000 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation ARPA,
+  Duplex unknown, 1000Mb/s, link type is force-up
+  output flow control is off, input flow control is off
+  loopback not set,
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+
+GigabitEthernet0/0/0/1 is administratively down, line protocol is administratively down 
+  Interface state transitions: 0
+  Hardware is GigabitEthernet, address is 0050.56bf.1337 (bia 0050.56bf.1337)
+  Description: test
+  Internet address is Unknown
+  MTU 1514 bytes, BW 1000000 Kbit (Max: 1000000 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation ARPA,
+  Duplex unknown, 1000Mb/s, link type is force-up
+  output flow control is off, input flow control is off
+  loopback not set,
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+
+GigabitEthernet0/0/0/2 is down, line protocol is down 
+  Interface state transitions: 0
+  Hardware is GigabitEthernet, address is 0050.56bf.8181 (bia 0050.56bf.8181)
+  Description: #test#
+  Internet address is Unknown
+  MTU 1522 bytes, BW 1000000 Kbit (Max: 1000000 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation ARPA,
+  Duplex unknown, 1000Mb/s, link type is force-up
+  output flow control is off, input flow control is off
+  loopback not set,
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+
+GigabitEthernet0/0/0/3 is administratively down, line protocol is administratively down 
+  Interface state transitions: 0
+  Hardware is GigabitEthernet, address is 0050.56bf.afc9 (bia 0050.56bf.afc9)
+  Description: test
+  Internet address is Unknown
+  MTU 1514 bytes, BW 1000000 Kbit (Max: 1000000 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation ARPA,
+  Duplex unknown, 1000Mb/s, link type is force-up
+  output flow control is off, input flow control is off
+  loopback not set,
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+
+GigabitEthernet0/0/0/4 is administratively down, line protocol is administratively down 
+  Interface state transitions: 0
+  Hardware is GigabitEthernet, address is 0050.56bf.bedb (bia 0050.56bf.bedb)
+  Internet address is Unknown
+  MTU 1514 bytes, BW 1000000 Kbit (Max: 1000000 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation ARPA,
+  Duplex unknown, 1000Mb/s, link type is force-up
+  output flow control is off, input flow control is off
+  loopback not set,
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+
+GigabitEthernet0/0/0/5 is administratively down, line protocol is administratively down 
+  Interface state transitions: 0
+  Hardware is GigabitEthernet, address is 0050.56bf.3ee8 (bia 0050.56bf.3ee8)
+  Internet address is Unknown
+  MTU 1514 bytes, BW 1000000 Kbit (Max: 1000000 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation ARPA,
+  Duplex unknown, 1000Mb/s, link type is force-up
+  output flow control is off, input flow control is off
+  loopback not set,
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+
+GigabitEthernet0/0/0/6 is administratively down, line protocol is administratively down 
+  Interface state transitions: 0
+  Hardware is GigabitEthernet, address is 0050.56bf.ee29 (bia 0050.56bf.ee29)
+  Internet address is Unknown
+  MTU 1514 bytes, BW 1000000 Kbit (Max: 1000000 Kbit)
+     reliability 255/255, txload 0/255, rxload 0/255
+  Encapsulation ARPA,
+  Duplex unknown, 1000Mb/s, link type is force-up
+  output flow control is off, input flow control is off
+  loopback not set,
+  Last input never, output never
+  Last clearing of "show interface" counters never
+  5 minute input rate 0 bits/sec, 0 packets/sec
+  5 minute output rate 0 bits/sec, 0 packets/sec
+     0 packets input, 0 bytes, 0 total input drops
+     0 drops for unrecognized upper-level protocol
+     Received 0 broadcast packets, 0 multicast packets
+              0 runts, 0 giants, 0 throttles, 0 parity
+     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored, 0 abort
+     0 packets output, 0 bytes, 0 total output drops
+     Output 0 broadcast packets, 0 multicast packets
+     0 output errors, 0 underruns, 0 applique, 0 resets
+     0 output buffer failures, 0 output buffers swapped out
+     0 carrier transitions
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+show processes cpu
+
+
+Wed Oct 23 21:22:21.645 UTC
+---- node0_RP0_CPU0 ----
+
+CPU utilization for one minute: 1%; five minutes: 0%; fifteen minutes: 0%
+ 
+PID    1Min    5Min    15Min Process
+1        0%      0%       0% init
+1709     0%      0%       0% bash
+1733     0%      0%       0% sh
+1734     0%      0%       0% bash
+1767     0%      0%       0% cgroup_oom
+1927     0%      0%       0% bash
+1931     0%      0%       0% bash
+1950     0%      0%       0% inotifywait
+1952     0%      0%       0% bash
+1998     0%      0%       0% dbus-daemon
+2017     0%      0%       0% sshd
+2027     0%      0%       0% rpcbind
+2126     0%      0%       0% rngd
+2132     0%      0%       0% syslogd
+2135     0%      0%       0% klogd
+2153     0%      0%       0% xinetd
+2198     0%      0%       0% crond
+3311     0%      0%       0% bash
+3312     0%      0%       0% dsr
+3335     0%      0%       0% bash
+3344     0%      0%       0% dev_inotify_hdlr
+3345     0%      0%       0% dev_inotify_hdlr
+3352     0%      0%       0% ds
+3452     0%      0%       0% processmgr
+3520     0%      0%       0% devc-conaux-aux
+3522     0%      0%       0% devc-conaux-con
+3524     0%      0%       0% correlatord
+3525     0%      0%       0% cerrno_server
+3526     0%      0%       0% syslogd
+3527     0%      0%       0% syslogd_helper
+3528     0%      0%       0% syslog_dev
+3529     0%      0%       0% shmwin_svr
+3530     0%      0%       0% sdr_invmgr
+3531     0%      0%       0% vm-monitor
+3532     0%      0%       0% dumper
+3533     0%      0%       0% qsm
+3535     0%      0%       0% mpa_fm_svr
+3540     0%      0%       0% spp
+3541     0%      0%       0% packet
+3542     0%      0%       0% chkpt_proxy
+3543     0%      0%       0% ltrace_server
+3544     0%      0%       0% ltrace_sync
+3545     0%      0%       0% resmon
+3546     0%      0%       0% sld
+3547     0%      0%       0% rmf_svr
+3548     0%      0%       0% bag_schema_svr
+3549     0%      0%       0% sysdb_svr_local
+3550     0%      0%       0% ssh_key_client
+3551     0%      0%       0% lcp_mgr
+3552     0%      0%       0% gsp
+3553     0%      0%       0% meminfo_svr
+3554     0%      0%       0% showd_server
+3556     0%      0%       0% tamfs
+3557     0%      0%       0% aipc_cleaner
+3558     0%      0%       0% rdsfs_svr
+3559     0%      0%       0% wdsysmon_fd_edm
+3560     0%      0%       0% sysdb_mc
+3561     0%      0%       0% bundlemgr_checker
+3562     0%      0%       0% cfgmgr-rp
+3563     0%      0%       0% parser_server
+3566     0%      0%       0% nvgen_server
+3569     0%      0%       0% timezone_config
+3570     0%      0%       0% sunstone_stats_svr
+3572     0%      0%       0% heap_summary_edm
+3573     0%      0%       0% issumgr
+3574     0%      0%       0% media_server
+3575     0%      0%       0% procfs_server
+3576     0%      0%       0% sdr_instagt
+3577     0%      0%       0% show_mediang_edm
+3583     0%      0%       0% issudir
+3588     0%      0%       0% nrssvr_global
+3590     0%      0%       0% invmgr_proxy
+3593     0%      0%       0% sysdb_shared_data_nc
+3595     0%      0%       0% sysdb_shared_nc
+3596     0%      0%       0% sysdb_shared_sc
+3600     0%      0%       0% sysdb_svr_admin
+3603     0%      0%       0% ssh_key_server
+3605     0%      0%       0% debug_d_admin
+3608     0%      0%       0% gcp_fib_verifier
+3611     0%      0%       0% nrssvr
+3614     0%      0%       0% early_fast_discard_verifier
+3616     0%      0%       0% subdb_svr
+3747     0%      0%       0% l2vpn_checker
+3750     0%      0%       0% vlan_ma
+4090     0%      0%       0% tty_exec_launcher
+4483     0%      0%       0% ifmgr
+4484     0%      0%       0% netio
+4485     0%      0%       0% ifindex_server
+4488     0%      0%       0% lpts_pa
+4489     0%      0%       0% alarm-logger
+4490     0%      0%       0% calv_alarm_mgr
+4491     0%      0%       0% eth_mgmt
+4492     0%      0%       0% fwd_driver_partner
+4493     0%      0%       0% locald_DLRSC
+4494     0%      0%       0% mempool_edm
+4496     0%      0%       0% ncd
+4497     0%      0%       0% nd_partner
+4498     0%      0%       0% nsr_fo
+4499     0%      0%       0% nsr_ping_reply
+4500     0%      0%       0% rmf_cli_edm
+4501     0%      0%       0% rsi_agent
+4502     0%      0%       0% rsi_master
+4503     0%      0%       0% sh_proc_mem_edm
+4505     0%      0%       0% sh_proc_threadname_edm
+4506     0%      0%       0% sysmgr_show_proc_all_edm
+4507     0%      0%       0% tty_show_users_edm
+4508     0%      0%       0% mpls_io_ea
+4509     0%      0%       0% aib
+4510     0%      0%       0% bundlemgr_adj
+4511     0%      0%       0% statsd_server
+4512     0%      0%       0% ipv4_arm
+4513     0%      0%       0% ipv6_arm
+4514     0%      0%       0% ipv4_acl_mgr
+4515     0%      0%       0% ipv6_acl_daemon
+4516     0%      0%       0% ipv4_mfwd_partner
+4517     0%      0%       0% ipv6_mfwd_partner
+4518     0%      0%       0% pifibm_server_rp
+4519     0%      0%       0% ipv4_io
+4520     0%      0%       0% ipv4_ma
+4521     0%      0%       0% ipv6_nd
+4522     0%      0%       0% policymgr_rp
+4523     0%      0%       0% fib_mgr
+4524     0%      0%       0% ipv6_ea
+4525     0%      0%       0% ipv6_io
+4527     0%      0%       0% nve_mgr
+4528     0%      0%       0% procfind
+4529     0%      0%       0% ipv6_ma
+4530     0%      0%       0% mpls_lsd
+4531     0%      0%       0% bgp_policy_reg_agent
+4532     0%      0%       0% eigrp_policy_reg_agent
+4533     0%      0%       0% igmp_policy_reg_agent
+4534     0%      0%       0% isis_policy_reg_agent
+4535     0%      0%       0% l2vpn_policy_reg_agent
+4536     0%      0%       0% lisp_xr_policy_reg_agent
+4537     0%      0%       0% mldp_policy_reg_agent
+4538     0%      0%       0% ospf_policy_reg_agent
+4539     0%      0%       0% ospfv3_policy_reg_agent
+4540     0%      0%       0% pim6_policy_reg_agent
+4541     0%      0%       0% pim_policy_reg_agent
+4543     0%      0%       0% rip_policy_reg_agent
+4544     0%      0%       0% debug_d
+4545     0%      0%       0% iedged
+4546     0%      0%       0% shelf_mgr_proxy
+4547     0%      0%       0% tamsvcs_tamm
+4767     0%      0%       0% bcdl_agent
+4822     0%      0%       0% tams_proc
+5033     0%      0%       0% bcdls
+5041     0%      0%       0% bcdls
+5142     0%      0%       0% cdm_rs
+5144     0%      0%       0% tamd_proc
+5225     0%      0%       0% ether_caps_partner
+5240     0%      0%       0% ether_sock
+5316     0%      0%       0% vlan_ea
+5442     0%      0%       0% tam_sync
+5443     0%      0%       0% kim
+5446     0%      0%       0% syslog_infra_hm
+5455     0%      0%       0% ipv6_rump
+5456     0%      0%       0% ipv4_rump
+5463     0%      0%       0% python_process_manager
+5470     0%      0%       0% ftp_fs
+5476     0%      0%       0% tty_verifyd
+5486     0%      0%       0% ethernet_stats_controller_edm
+5489     0%      0%       0% bgp_epe
+5492     0%      0%       0% bfd
+5495     0%      0%       0% domain_services
+5501     0%      0%       0% bundlemgr_distrib
+5505     0%      0%       0% pim
+5530     0%      0%       0% pim6
+5531     0%      0%       0% mld
+5532     0%      0%       0% ipv6_local
+5544     0%      0%       0% ipv6_connected
+5545     0%      0%       0% ipv4_local
+5552     0%      0%       0% ipv4_connected
+5559     0%      0%       0% igmp
+5564     0%      0%       0% ipv4_mpa
+5581     0%      0%       0% eth_gl_cfg
+5620     0%      0%       0% ipv6_mpa
+5638     0%      0%       0% policy_repository
+5647     0%      0%       0% mrib6
+5653     0%      0%       0% mrib
+5654     0%      0%       0% ipv6_rib
+5657     0%      0%       0% ipv6_mfwd_ma
+5661     0%      0%       0% ipv4_rib
+5679     0%      0%       0% ipv4_mfwd_ma
+5685     0%      0%       0% statsd_manager_g
+5686     0%      0%       0% intf_mgbl
+5687     0%      0%       0% lldp_mgr
+5689     0%      0%       0% mpls_static
+5690     0%      0%       0% ztp_cfg
+5702     0%      0%       0% ema_server_sdr
+5718     0%      0%       0% accounting_ma
+5729     0%      0%       0% daps
+5746     0%      0%       0% ipsub_ma
+5750     0%      0%       0% l2fib_mgr
+5764     0%      0%       0% l2rib
+5776     0%      0%       0% pppoe_ma
+5789     0%      0%       0% sconbkup
+5790     0%      0%       0% yang_server
+5794     0%      0%       0% ipv6_assembler
+5798     0%      0%       0% mpls_fwd_show_proxy
+5803     0%      0%       0% shconf-edm
+5832     0%      0%       0% statsd_manager_l
+5874     0%      0%       0% mpls_io
+5908     0%      0%       0% ntpd
+5919     0%      0%       0% session_mon
+5949     0%      0%       0% clns
+5961     0%      0%       0% arp
+6000     0%      0%       0% ip_aps
+6018     0%      0%       0% raw_ip
+6055     0%      0%       0% tcp
+6063     0%      0%       0% bcdls
+6064     0%      0%       0% udp
+6085     0%      0%       0% bcdls
+6086     0%      0%       0% fhrp_output
+6113     0%      0%       0% l2snoop
+6136     0%      0%       0% pim6_ma
+6146     0%      0%       0% pim_ma
+6163     0%      0%       0% bcdls
+6164     0%      0%       0% ip_app
+6185     0%      0%       0% cinetd
+6203     0%      0%       0% devc-vty
+6229     0%      0%       0% bundlemgr_local
+6259     0%      0%       0% tftp_fs
+6289     0%      0%       0% type6_server
+6325     0%      0%       0% bcdl_agent
+6326     0%      0%       0% vi_config_replicator
+6345     0%      0%       0% bcdl_agent
+6347     0%      0%       0% eem_server
+6352     0%      0%       0% bcdl_agent
+6357     0%      0%       0% showd_lc
+6445     0%      0%       0% tcl_secure_mode
+6472     0%      0%       0% lpts_fm
+6506     0%      0%       0% eem_policy_dir
+6534     0%      0%       0% ipsec_mp
+6547     0%      0%       0% ipsec_pp
+6565     0%      0%       0% cepki
+6569     0%      0%       0% crypto_monitor
+6582     0%      0%       0% eem_ed_config
+6608     0%      0%       0% eem_ed_counter
+6634     0%      0%       0% eem_ed_generic
+6652     0%      0%       0% eem_ed_nd
+6657     0%      0%       0% eem_ed_none
+6664     0%      0%       0% eem_ed_stats
+6703     0%      0%       0% eem_ed_syslog
+6730     0%      0%       0% eem_ed_sysmgr
+6779     0%      0%       0% eem_ed_test
+6800     0%      0%       0% eem_ed_timer
+6811     0%      0%       0% object_tracking
+6838     0%      0%       0% call_home
+6905     0%      0%       0% http_client
+6919     0%      0%       0% plat_sl_client
+6925     0%      0%       0% smartlicserver
+7541     0%      0%       0% mirror_server
+7544     0%      0%       0% redstatsd
+7545     0%      0%       0% appmgr
+7549     0%      0%       0% checksum_verifier_main
+7551     0%      0%       0% cmp_edm
+7552     0%      0%       0% crypto_edm
+7553     0%      0%       0% dockerd_monitor
+7554     0%      0%       0% domain_sync
+7556     0%      0%       0% es_acl_act_agent
+7558     0%      0%       0% file_paltx
+7559     0%      0%       0% hostname_sync
+7560     0%      0%       0% imaedm_server
+7562     0%      0%       0% infra-sec-keysd
+7563     0%      0%       0% ipodwdm
+7566     0%      0%       0% ipv4_acl_act_agent
+7571     0%      0%       0% ipv6_acl_cfg_agent
+7575     0%      0%       0% linux_nto_misc_showd
+7578     0%      0%       0% local_sock
+7582     0%      0%       0% mpls_vpn_mib
+7583     0%      0%       0% netio_debug_partner
+7584     0%      0%       0% pak_capture_partner
+7586     0%      0%       0% pam_manager
+7589     0%      0%       0% pfilter_ma
+7592     0%      0%       0% pm_server
+7599     0%      0%       0% script_agent_main
+7604     0%      0%       0% script_watcher_main
+7607     0%      0%       0% spio_ea
+7608     0%      0%       0% spio_ma
+7609     0%      0%       0% ssm_process
+7728     0%      0%       0% pm_collector
+7839     0%      0%       0% wanphy_proc
+7840     0%      0%       0% ssh_server
+7841     0%      0%       0% tc_server
+7842     0%      0%       0% ssh_backup_server
+7843     0%      0%       0% snmppingd
+7844     0%      0%       0% sdr_instmgr
+7845     0%      0%       0% schema_server
+7848     0%      0%       0% cmpp
+7849     0%      0%       0% ocaaateld
+7850     0%      0%       0% li_mgr
+7851     0%      0%       0% l2tp_mgr
+7856     0%      0%       0% mpls_ldp
+7859     0%      0%       0% bash
+7860     0%      0%       0% l2vpn_mgr
+7863     0%      0%       0% xtc_agent
+7869     0%      0%       0% pbr_ma
+7872     0%      0%       0% rt_check_mgr
+7873     0%      0%       0% attestation_agent
+7874     0%      0%       0% es_acl_mgr
+7878     0%      0%       0% vservice_mgr
+7893     0%      0%       0% qos_ma
+8211     0%      0%       0% snmpd
+8221     0%      0%       0% banner_config
+8227     0%      0%       0% ipv4_static
+8281     0%      0%       0% mibd_entity
+8282     0%      0%       0% mibd_infra
+8283     0%      0%       0% mibd_interface
+8284     0%      0%       0% mibd_route
+8311     0%      0%       0% emsd
+8320     0%      0%       0% netconf
+8738     0%      0%       0% xml_tty_agent
+8739     0%      0%       0% netconf_agent_tty
+8778     0%      0%       0% loopback_caps_partner
+8829     0%      0%       0% sdr_mgbl_proxy
+8850     0%      0%       0% ether_mgbl
+9765     0%      0%       0% bpm
+9939     0%      0%       0% pam_cli_agent
+10221    0%      0%       0% bgp
+10368    0%      0%       0% perl
+10397    0%      0%       0% perl
+10495    0%      0%       0% perl
+10547    0%      0%       0% perl
+12965    0%      0%       0% cdp_mgr
+18685    0%      0%       0% isis
+18686    0%      0%       0% isis_uv
+18720    0%      0%       0% tunl_gre_ma
+18736    0%      0%       0% tunl_gre_ea
+24987    0%      0%       0% sleep
+25058    0%      0%       0% sleep
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+show memory statistics
+
+                                   ^
+% Invalid input detected at '^' marker.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
